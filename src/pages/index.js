@@ -10,6 +10,10 @@ const URL =
   "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?t=images&q=70113007"
 
 const IndexPage = () => {
+	const [movie, setMovie] = useState(BE[Math.floor(Math.random() * BE.length)].netflixid)
+
+	useEffect(() => setMovie(useState(BE[Math.floor(Math.random() * BE.length)].netflixid)))
+
   return (
     <Layout>
       <SEO title="Home" />
@@ -19,7 +23,7 @@ const IndexPage = () => {
       <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
         <Image />
       </div>
-      <a href={"https://www.netflix.com/watch/" + BE[Math.floor(Math.random() * BE.length)].netflixid}>
+      <a href={"https://www.netflix.com/watch/" + movie.netflixid}>
         Watch a movie
       </a>
     </Layout>
