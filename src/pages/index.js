@@ -1,27 +1,37 @@
-import React, {useState, useEffect} from "react"
+import React from "react"
+import { StaticQuery, graphql } from "gatsby"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
-import BE from "../../BE.json"
-
+const randomGenerator = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
 
 const IndexPage = () => {
-	const [movie, setMovie] = useState(BE[Math.floor(Math.random() * BE.length)])
-
   return (
-    <Layout>
-      <SEO title="Home" />
-      <h1>Hi people</h1>
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>
-      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-        <Image />
-      </div>
-      <a href={"https://www.netflix.com/watch/" + movie.netflixid}>
-        Watch a movie
-      </a>
-    </Layout>
+  <StaticQuery
+    query={graphql`
+{
+  allBeJson {
+    edges {
+      node {
+        title,
+        netflixid
+      }      
+    }
+  }
+}
+    `}
+    render={data => {
+      const { allBeJson } = data
+      const { edges } = allBeJson
+      const randomPosition = randomGenerator(0, edges.length - 1)
+      const randomMovie = edges[randomPosition].node
+      return (
+      <a href={"https://www.netflix.com/watch/" + randomMovie.netflixid}>
+					{randomMovie.title}
+				</a>
+      )
+    }}
+  />
   )
 }
 
