@@ -1,15 +1,15 @@
 const axios = require("axios")
-
-
-const URL =
-  "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew99999-!1900,2018-!3,5-!7.5,10-!0-!Any-!Any-!Any-!gt100-!{downloadable}&t=ns&cl=all&st=adv&ob=Relevance&p=0&sa=and"
+const fs = require('fs');
 
 const getMovies = async(movies = [], page=0, count = undefined) => {
-	if(page > 2)
+
+  const URL = `https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew99999-!1900,2018-!3,5-!7.5,10-!0-!Movie-!Any-!Any-!gt100-!{downloadable}&t=ns&cl=26&st=adv&ob=Relevance&p=${page}&sa=and`
+
+	if(page > count/100)
 	{
 		return [];
 	}
-  newMovies = await axios({
+  newMovies = await await axios({
     url: URL,
     method: "GET",
     headers: {
@@ -18,12 +18,8 @@ const getMovies = async(movies = [], page=0, count = undefined) => {
     },
 	}).then(async (data) => await getMovies(data.data.ITEMS, page+1, data.data.COUNT))
 
-	console.log("movies", movies)
-	console.log("movies", movies.length)
-	console.log("newmovies", newMovies)
-
-	return newMovies
+	return [...movies, ...newMovies]
 
 }
 
-getMovies()
+getMovies().then( data => fs.writeFileSync('../BE.json', JSON.stringify(data)))
