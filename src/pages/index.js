@@ -10,9 +10,6 @@ const URL =
   "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?t=images&q=70113007"
 
 const IndexPage = () => {
-
-console.log(BE)
-
   return (
     <Layout>
       <SEO title="Home" />
