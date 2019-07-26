@@ -6,13 +6,8 @@ import SEO from "../components/seo"
 import BE from "../../BE.json"
 
 
-const URL =
-  "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?t=images&q=70113007"
-
 const IndexPage = () => {
-	const [movie, setMovie] = useState(BE[Math.floor(Math.random() * BE.length)].netflixid)
-
-	useEffect(() => setMovie(useState(BE[Math.floor(Math.random() * BE.length)].netflixid)))
+	const [movie, setMovie] = useState(BE[Math.floor(Math.random() * BE.length)])
 
   return (
     <Layout>
