@@ -4,7 +4,11 @@ const axios = require("axios")
 const URL =
   "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew99999-!1900,2018-!3,5-!7.5,10-!0-!Any-!Any-!Any-!gt100-!{downloadable}&t=ns&cl=all&st=adv&ob=Relevance&p=0&sa=and"
 
-const getMovies = async(movies = [], page=1, count = undefined) => {
+const getMovies = async(movies = [], page=0, count = undefined) => {
+	if(page > 2)
+	{
+		return [];
+	}
   newMovies = await axios({
     url: URL,
     method: "GET",
@@ -15,12 +19,11 @@ const getMovies = async(movies = [], page=1, count = undefined) => {
 	}).then(async (data) => await getMovies(data.data.ITEMS, page+1, data.data.COUNT))
 
 	console.log("movies", movies)
+	console.log("movies", movies.length)
 	console.log("newmovies", newMovies)
 
-	if(count === undefined || count > page*100){
-		return [...movies, ...newMovies]
-	}
+	return newMovies
 
 }
 
-console.log(getMovies())
+getMovies()
