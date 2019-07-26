@@ -7,6 +7,7 @@ module.exports = {
 	plugins: [
 		`gatsby-plugin-react-helmet`,
 		`gatsby-transformer-json`,
+`gatsby-plugin-styled-components`,
 		{
 			resolve: `gatsby-source-filesystem`,
 			options: {
@@ -30,5 +31,32 @@ module.exports = {
 		// this (optional) plugin enables Progressive Web App + Offline functionality
 		// To learn more, visit: https://gatsby.dev/offline
 		// `gatsby-plugin-offline`,
+		{
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Montserrat`,
+            subsets: [`latin`],
+          },
+          {
+            family: `Lily Script One`,
+            subsets: [`latin`],
+          },
+          {
+            family: `Rye`,
+            subsets: [`latin`],
+          },
+          {
+            family: `Amatic SC`,
+            subsets: [`latin`],
+          },
+          {
+            family: `Source Sans Pro`,
+            subsets: [`latin`],
+          },
+        ],
+      },
+    },
 	],
 }
